@@ -55,7 +55,7 @@ After you have successfully deployed a TiDB cluster, you can now monitor the TiD
 
 After the deployment is completed, the following components are deployed by default:
 
-- 3 PD instances, 3 TiKV instances, 1 TiDB instance
+- 3 PD instances, 3 TiKV instances, 1 TiDB instance, 1 TiSpark instance
 - Monitoring components: Prometheus, Pushgateway, Grafana
 - Data visualization component: tidb-vision
 

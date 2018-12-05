@@ -6,9 +6,9 @@ category: try tidb
 
 # Try TiDB
 
-After you successfully deploy a TiDB cluster, you can run SQL statements in TiDB. Because TiDB is compatible with MySQL, you can use THE MySQL client to connect to TiDB and run MySQL statements directly in most of the cases. For more information, see [Compatibility with MySQL](sql/mysql-compatibility.md).
+After you successfully deploy a TiDB cluster, you can run SQL statements in TiDB. Because TiDB is compatible with MySQL, you can use the official MySQL client to connect to TiDB and run MySQL statements directly, and in most cases it will just work. For more information, see [Compatibility with MySQL](sql/mysql-compatibility.md).
 
-This page includes some basic SQL statements such as CRUD operations. For a complete list of the statements, see [TiDB SQL Syntax Diagram](https://pingcap.github.io/sqlgram/).
+This page demonstrates some basic SQL statements such as CRUD operations. For a complete list of SQL statements supported by TiDB, see the [TiDB SQL Syntax Diagram](https://pingcap.github.io/sqlgram/).
 
 ## Create, show, and drop a database
 
@@ -20,10 +20,10 @@ To create a database, use the `CREATE DATABASE` statement:
 CREATE DATABASE db_name [options];
 ```
 
-For example, to create a database named `samp_db`:
+For example, to create a database named `sample_db`:
 
 ```sql
-CREATE DATABASE IF NOT EXISTS samp_db;
+CREATE DATABASE IF NOT EXISTS sample_db;
 ```
 
 ### Show the databases
@@ -39,7 +39,7 @@ SHOW DATABASES;
 To delete a database, use the `DROP DATABASE` statement:
 
 ```sql
-DROP DATABASE samp_db;
+DROP DATABASE sample_db;
 ```
 
 ## Create, show, and drop a table
@@ -83,7 +83,7 @@ DROP DATABASE samp_db;
 - To show all the tables in a database, use the `SHOW TABLES` statement:
 
     ```sql
-    SHOW TABLES FROM samp_db;
+    SHOW TABLES FROM sample_db;
     ```
 
 - To show all the columns in a table, use the `SHOW FULL COLUMNS` statement:
@@ -211,10 +211,10 @@ CREATE USER 'tiuser'@'localhost' IDENTIFIED BY '123456';
 
 ### Authorize a user
 
-- To grant `tiuser` the privilege to retrieve the tables in the `samp_db` database:
+- To grant `tiuser` the privilege to retrieve the tables in the `sample_db` database:
 
     ```sql
-    GRANT SELECT ON samp_db.* TO 'tiuser'@'localhost';
+    GRANT SELECT ON sample_db.* TO 'tiuser'@'localhost';
     ```
 
 - To check the privileges of `tiuser`:

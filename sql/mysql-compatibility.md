@@ -37,11 +37,11 @@ However, in TiDB, the following MySQL features are not supported for the time be
 
 ### Auto-increment ID
 
-The auto-increment ID feature in TiDB is only guaranteed to be automatically incremental and unique but is not guaranteed to be allocated sequentially. Currently, TiDB is allocating IDs in batches. If data is inserted into multiple TiDB servers simultaneously, the allocated IDs are not sequential.
+Auto-increment IDs in TiDB are guaranteed to be automatically incremented and unique but are not guaranteed to be allocated sequentially. Currently, TiDB is allocating IDs in batches. If data is inserted into multiple TiDB servers simultaneously, the allocated IDs are not sequential.
 
 > **Warning**:
 > 
-> If you use the auto-increment ID in a cluster with multiple tidb-server instances, do not mix the default value and the custom value, otherwise an error occurs in the following situation:
+> If you use an auto-increment ID in a cluster with multiple tidb-server instances, do not insert IDs by specifying them explicitly. Instead, always let the server create the ID. Otherwise an error occurs in the following situation:
 > 
 > Assume that you have a table with the auto-increment ID:
 > 
@@ -95,11 +95,11 @@ TiDB implements the asynchronous schema changes algorithm in F1. The Data Manipu
 
 ### Transaction model
 
-TiDB implements an optimistic transaction model. Unlike MySQL, which uses row-level locking to avoid write conflict, in TiDB, the write conflict is checked only in the `commit` process during the execution of the statements like `Update`, `Insert`, `Delete`, and so on.
+TiDB implements an optimistic transaction model. Unlike MySQL, which uses row-level locking to avoid write conflict, in TiDB, the write conflict is checked only in the `commit` process during the execution of statements like `Update`, `Insert`, `Delete`, and so on.
 
 Similarly, functions such as `GET_LOCK()` and `RELEASE_LOCK()` and statements such as `SELECT .. FOR UPDATE` do not work in the same way as in MySQL.
 
-**Note:** On the business side, remember to check the returned results of `commit` because even there is no error in the execution, there might be errors in the `commit` process.
+**Note:** On the application side, remember to check the returned results of `commit` because even if there is no error in the execution, there might be errors in the `commit` process.
 
 ### Large transactions
 
@@ -147,7 +147,7 @@ Due to its distributed nature, workloads that are single-threaded may perform wo
 
 + Transaction
 
-    When TiDB is in the execution of loading data, by default, a record with 20,000 rows of data is seen as a transaction for persistent storage. If a load data operation inserts more than 20,000 rows, it will be divided into multiple transactions to commit. If an error occurs in one transaction, this transaction in process will not be committed. However, transactions before that are committed successfully. In this case, a part of the load data operation is successfully inserted, and the rest of the data insertion fails. But MySQL treats a load data operation as a transaction, one error leads to the failure of the entire load data operation.
+    When TiDB is loading data, by default, it commits that data in transactions of 20,000 rows each. If a load data operation inserts more than 20,000 rows, it will be divided into multiple transactions to commit. If an error occurs in one transaction, this transaction in process will not be committed. However, transactions before that are committed successfully. In this case, a part of the load data operation is successfully inserted, and the rest of the data insertion fails. MySQL though treats a load data operation as a single transaction, and one error leads to the failure of the entire load data operation.
     
 ### Storage engines
 
